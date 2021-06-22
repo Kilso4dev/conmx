@@ -1,0 +1,9 @@
+name: "ConMX Controller software"
+version: "0.1.0"
+author: "Paul Seydel <Seydel.fnvd@gmail.com>"
+about: "run visualization Software, usage: rnet <TargetAddr>"
+args:
+  #- node-ip:
+  #  help: Ip of the target artnet node
+  #  index: 1
+

@@ -1,0 +1,6 @@
+[submodule "rnetvis_net/open_fixture_library"]
+	path = rnetvis_net/open_fixture_library
+	url = https://github.com/OpenLightingProject/open-fixture-library.git
+[submodule "open_fixture_library"]
+	path = open_fixture_library
+	url = https://github.com/OpenLightingProject/open-fixture-library.git

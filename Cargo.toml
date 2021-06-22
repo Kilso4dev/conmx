@@ -1,0 +1,28 @@
+[package]
+name = "conmx"
+version = "0.1.0"
+authors = ["Paul Seydel <Seydel.fnvd@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+err-derive = "^0.3"
+regex = "^1.5"
+lazy_static ="^1.4"
+log = "^0.4"
+dotenv = "^0.15"
+env_logger = "^0.8"
+artnet_protocol = "^0.3"
+
+iced = { version = "^0.3", features = ["canvas", "svg"] }
+iced_native = "^0.4"
+iced_wgpu = "^0.4"
+iced_graphics = "^0.2"
+
+serde = { version = "^1.0" }
+serde_json = { version = "^1.0" }
+clap = { version = "^2.33", features = ["yaml"] }
+chrono = "^0.4"
+#rnetvis_ui = { path="rnetvis_ui" }
+#rnetvis_net = { path="rnetvis_net" }

@@ -1,0 +1,6 @@
+{
+    "main": {
+        "test-text": "This is the given Text!",
+        "test-2": "And this is a second test!"
+    }
+}
