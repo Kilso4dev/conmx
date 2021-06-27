@@ -1,2 +1,1 @@
-mod grid;
-pub use grid::*;
+pub mod grid;

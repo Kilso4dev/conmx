@@ -29,7 +29,7 @@ use crate::{
     conmx_core,
 };
 
-use super::components::Grid;
+use super::components::grid::Grid;
 
 
 #[derive(Debug, Clone, Copy, PartialEq)]

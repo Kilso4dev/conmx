@@ -1,4 +1,4 @@
-mod components;
+pub mod components;
 mod views;
 mod conmx;
 pub mod style;
