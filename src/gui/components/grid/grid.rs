@@ -288,6 +288,7 @@ impl<'a> canvas::Program<Msg> for Grid {
                 .with_in("IN 3".to_owned(), Port::Integer(0))
                 .with_in("IN 4".to_owned(), Port::Array(vec![]))
                 .with_out("Output".to_owned(), Port::Float(0.))
+                .with_driver()
                 .build();
 
             match node {
