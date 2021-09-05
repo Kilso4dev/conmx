@@ -22,10 +22,9 @@ use env_logger::{
 };
 use localization::localized;
 
-use log::LevelFilter;
-
 
 fn main() {
+    #[cfg(feature="dotenv")]
     dotenv::dotenv().ok();
 
     // Setup logging
@@ -50,7 +49,6 @@ fn main() {
                 rec.args(),
             )
         })
-        //.filter_module("conmx", LevelFilter::Info)
         .init();
 
     println!("{}", localized("This is a test!"));

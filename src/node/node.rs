@@ -1,11 +1,11 @@
 use std::fmt;
-use log::info;
 
 use super::port::{
     Port,
     InputPort,
     OutputPort,
 };
+use super::graph::GraphNode;
 
 use crate::gui::components::grid::{
     self,
@@ -39,12 +39,21 @@ impl fmt::Debug for Node {
     }
 }
 
+impl GraphNode for Node {}
+
 impl Node {
     const NODE_RADIUS: f32 = 1.;
     const HEADER_HEIGHT: f32 = 2.;
     const PORT_HEIGHT: f32 = 1.5;
     const FOOTER_HEIGHT: f32 = 2.;
     const NODE_WIDTH: f32 = 10.;
+
+    pub fn has_inputs(&self) -> bool {
+        !self.inputs.is_empty()
+    }
+    pub fn has_outputs(&self) -> bool {
+        !self.outputs.is_empty()
+    }
 
     pub fn new() -> NodeBuilder {
         NodeBuilder::new()
@@ -54,7 +63,6 @@ impl Node {
         for c_driver in self.drivers.iter() {
             let _changed_ins = c_driver(&self.inputs);
         }
-
         // TODO implement
     }
 
@@ -80,14 +88,14 @@ impl Node {
     }
 
 }
-impl grid::Drawable for Node {
 
+impl grid::Drawable for Node {
     fn draw(&self, frame: &mut canvas::Frame) {
         let path = helpers::rounded_rect_path(self.get_bounding_box(), Self::NODE_RADIUS);
 
-        let fill = iced::Color::from_rgb8(0x0F, 0x0F, 0x0F);
-        let stroke_s =  canvas::Stroke::default()
-            .with_color(Color::from_rgb8(0x00, 0x80, 0x00))
+        let fill = Color::from_rgb8(0x0F, 0x0F, 0x0F); // #0F0F0F
+        let stroke_s = canvas::Stroke::default()
+            .with_color(Color::from_rgb8(0x00, 0x80, 0x00)) // #008000
             .with_width(2.);
 
         frame.stroke(&path, stroke_s);
@@ -101,7 +109,6 @@ impl grid::Drawable for Node {
             c_transl = c_transl + Vector::new(0., Self::PORT_HEIGHT);
         }
 
-
         let mut c_transl = Vector::new(Self::NODE_WIDTH, Self::HEADER_HEIGHT + (Self::PORT_HEIGHT/2.));
         for cout_port in self.outputs.iter() {
             frame.translate(c_transl);
@@ -109,6 +116,8 @@ impl grid::Drawable for Node {
             frame.translate(Vector::default()-c_transl);
             c_transl = c_transl + Vector::new(0., Self::PORT_HEIGHT);
         }
+
+
     }
 
     fn get_bounding_box(&self) -> iced::Rectangle {
@@ -118,7 +127,6 @@ impl grid::Drawable for Node {
         })
     }
 }
-
 
 pub struct NodeBuilder {
     starting_pos: Point,
@@ -158,7 +166,6 @@ impl NodeBuilder {
     }
 
     pub fn build(self) -> Result<Node, err::NodeCreationErr> {
-
         // TODO Check if drivers overlap and warn appropiatly
 
         Ok(Node {

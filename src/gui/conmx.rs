@@ -144,14 +144,12 @@ impl Application for ConMX {
             .height(Length::Fill)
             .style(style::Theme);
 
-        let grid = Grid::new();
-
         let subcont = Row::new()
             .height(Length::Fill)
             .width(Length::Fill)
             .align_items(Align::Center)
             .push(self.grid.view()
-                .map(move |msg| ConMXMsg::Grid));
+                .map(move |_msg| ConMXMsg::Grid));
         /*
             .push(but)
             .push(img)

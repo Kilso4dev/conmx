@@ -121,10 +121,10 @@ fn draw_port(port: &Port, frame: &mut canvas::Frame) {
     let color_mul = 0.4;
     let path = canvas::Path::circle(Point::default(), Port::HEIGHT);
     let light_color = match port {
-        Port::Array(_) => Color::from_rgb8(0xA0, 0xA0, 0xA0),
-        Port::Float(_) => Color::from_rgb8(0xC0, 0x0, 0x0),
-        Port::Integer(_) => Color::from_rgb8(0x0, 0xC0, 0x0),
-        Port::Unsigned8(_) => Color::from_rgb8(0x0, 0x0, 0xC0),
+        Port::Array(_) => Color::from_rgb8(0xA0, 0xA0, 0xA0),   //#A0A0A0
+        Port::Float(_) => Color::from_rgb8(0xC0, 0x0, 0x0),     //#C00000
+        Port::Integer(_) => Color::from_rgb8(0x0, 0xC0, 0x0),   //#00C000
+        Port::Unsigned8(_) => Color::from_rgb8(0x0, 0x0, 0xC0), //#0000C0    
     };
 
     let fill_s = Color::from_rgb(

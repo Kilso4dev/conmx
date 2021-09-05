@@ -18,6 +18,11 @@ use super::{
     drawable::Drawable,
 };
 
+use crate::node::{
+    self,
+    Graph,
+};
+
 
 pub enum Msg {
     PosChange(Point),
@@ -26,6 +31,8 @@ pub enum Msg {
 
 #[derive(Debug, Default)]
 pub struct Grid {
+    graph: Graph<node::Node>, 
+
     mouse_last_pos: Option<iced::Point>,
     mouse_drag_node: bool,
     mouse_drag_screen: bool,
@@ -35,9 +42,8 @@ pub struct Grid {
     scaling: f32,
     grid_dist: f32,
 
+    graph_cache: canvas::Cache,
     overlay_cache: canvas::Cache,
-    connection_cache: canvas::Cache,
-    node_cache: canvas::Cache,
     background_cache: canvas::Cache,
 }
 
@@ -96,10 +102,14 @@ impl Grid {
         frame.translate(Vector::new(bounds.width / 2.0, bounds.height / 2.0));
         frame.scale(self.scaling);
         frame.translate(self.translation);
-        frame.scale(self.grid_dist);
+        //frame.scale(self.grid_dist);
     }
 
     pub fn update(&mut self, msg: Msg) {
+                        if self.mouse_drag_node {
+
+
+                        }
         match msg {
             Msg::PosChange(_p) => {
             }
@@ -282,13 +292,15 @@ impl<'a> canvas::Program<Msg> for Grid {
             };
             self.translate_viewport(frame, &bounds);
 
+            self.graph.draw(frame);
+
             let node = Node::new()
                 .with_in("Input".to_owned(), Port::Float(0.))
                 .with_in("IN 2".to_owned(), Port::Unsigned8(0))
                 .with_in("IN 3".to_owned(), Port::Integer(0))
                 .with_in("IN 4".to_owned(), Port::Array(vec![]))
                 .with_out("Output".to_owned(), Port::Float(0.))
-                .with_driver()
+                //.with_driver()
                 .build();
 
             match node {
@@ -323,8 +335,6 @@ impl<'a> canvas::Program<Msg> for Grid {
 
             frame.into_geometry()
         };
-
-
 
         vec![bg, connections, nodes, overlay]
     }
